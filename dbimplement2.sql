@@ -13,15 +13,6 @@ DROP DATABASE IF EXISTS abdillah_17900375;
 CREATE DATABASE	abdillah_17900375;
 USE abdillah_17900375;
 
--- create user table;
-DROP TABLE IF EXISTS users;
-CREATE TABLE users(
-    user_id CHAR(3) NOT NULL,
-    fk_city_id CHAR(3) NOT NULL,
-    age int(2),
-    PRIMARY KEY(user_id),
-    FOREIGN KEY(fk_city_id) REFERENCES location(city_id)
-);
 
 -- create location table;
 DROP TABLE IF EXISTS location;
@@ -40,15 +31,25 @@ CREATE TABLE tour_category(
     PRIMARY KEY(category_id)
 );
 
+-- create user table;
+DROP TABLE IF EXISTS users;
+CREATE TABLE users(
+    user_id CHAR(3) NOT NULL,
+    fk_city_id CHAR(3) NOT NULL,
+    age int(2),
+    PRIMARY KEY(user_id),
+    FOREIGN KEY(fk_city_id) REFERENCES location(city_id)
+);
+
 -- crate tourism table;
 DROP TABLE IF EXISTS tourism;
 CREATE TABLE tourism(
     place_id CHAR(3) NOT NULL,
     place_name VARCHAR(20) NOT NULL,
-    description SMALLTEXT,
+    description VARCHAR(500),
     fk_city_id CHAR(3) NOT NULL,
     fk_category_id CHAR(3) NOT NULL,
-    avg_rating DECIMAL(1,2),
+    avg_rating DECIMAL(1,1),
     time_minute int(4),
     latitude DECIMAL(3,3),
     longitude DECIMAL(3,3),
@@ -63,7 +64,7 @@ CREATE TABLE tour_package(
     package_id CHAR(3) NOT NULL,
     fk_place_id CHAR(3) NOT NULL,
     sum_price INT(9),
-    avg_rating DECIMAL(1,2),
+    avg_rating DECIMAL(1,1),
     PRIMARY KEY(package_id),
     FOREIGN KEY(fk_place_id) REFERENCES tourism(place_id)
 );
@@ -78,3 +79,17 @@ CREATE TABLE tour_rating(
 	FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE,
 	FOREIGN KEY(place_id) REFERENCES tourism(place_id) ON DELETE CASCADE
 );
+
+SHOW TABLES FROM abdillah_17900375;
+
+SHOW COLUMNS FROM users;
+
+SHOW COLUMNS FROM location;
+
+SHOW COLUMNS FROM tour_category;
+
+SHOW COLUMNS FROM tour_package;
+
+SHOW COLUMNS FROM tour_rating;
+
+SHOW COLUMNS FROM tourism;
