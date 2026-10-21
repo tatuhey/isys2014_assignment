@@ -50,7 +50,8 @@ CREATE TABLE tourism(
     fk_city_id CHAR(3) NOT NULL,
     fk_category_id CHAR(3) NOT NULL,
     avg_rating DECIMAL(1,1),
-    time_minute int(4),
+    price DECIMAL(9,2),
+    time_minute INT(4),
     latitude DECIMAL(3,3),
     longitude DECIMAL(3,3),
     PRIMARY KEY(place_id),
@@ -63,7 +64,7 @@ DROP TABLE IF EXISTS tour_package;
 CREATE TABLE tour_package(
     package_id CHAR(3) NOT NULL,
     fk_place_id CHAR(3) NOT NULL,
-    sum_price INT(9),
+    sum_price DECIMAL(9,2),
     avg_rating DECIMAL(1,1),
     PRIMARY KEY(package_id),
     FOREIGN KEY(fk_place_id) REFERENCES tourism(place_id)
