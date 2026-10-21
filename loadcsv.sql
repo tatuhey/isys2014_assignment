@@ -51,6 +51,9 @@ LOAD DATA LOCAL
     LINES TERMINATED BY '\n'
     IGNORE 1 ROWS;
 
+-- truncate table tour_package;
+-- select count(*) from tour_package;
+
 -- load new_tourism_rating.csv to tour_rating table;
 LOAD DATA LOCAL
     INFILE 'new_tourism_rating.csv'
@@ -60,6 +63,6 @@ LOAD DATA LOCAL
     IGNORE 1 ROWS;
 
 
--- show warnings limit 500;
--- truncate table tour_package;
+-- show warnings limit 20;
+-- truncate table tour_rating;
 -- select count(*) from tour_package;
