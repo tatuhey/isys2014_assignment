@@ -27,7 +27,7 @@ CREATE TABLE location(
 DROP TABLE IF EXISTS tour_category;
 CREATE TABLE tour_category(
     category_id CHAR(3) NOT NULL,
-    category_name VARCHAR(12) NOT NULL,
+    category_name VARCHAR(20) NOT NULL,
     PRIMARY KEY(category_id)
 );
 
