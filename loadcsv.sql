@@ -59,9 +59,3 @@ LOAD DATA LOCAL
     LINES TERMINATED BY '\n'
     IGNORE 1 ROWS;
 
-SELECT * FROM users;
-SELECT * FROM location;
-SELECT * FROM tour_category;
-SELECT * FROM tour_package;
-SELECT * FROM tour_rating;
-SELECT * FROM tourism;
