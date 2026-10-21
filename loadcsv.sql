@@ -36,9 +36,9 @@ LOAD DATA LOCAL
     IGNORE 1 ROWS;
 
 -- load new_tourism.csv to toursim table;
--- LOAD DATA LOCAL
---     INFILE 'new_tourism.csv'
---     INTO TABLE tourism
---     FIELDS TERMINATED BY ',' ENCLOSED BY '"'
---     LINES TERMINATED BY '\n'
---     IGNORE 1 ROWS;
+LOAD DATA LOCAL
+   INFILE 'new_tourism.csv'
+   INTO TABLE tourism
+   FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+   LINES TERMINATED BY '\n'
+   IGNORE 1 ROWS;
