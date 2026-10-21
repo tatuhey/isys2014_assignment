@@ -67,7 +67,7 @@ CREATE TABLE tour_package(
     sum_price DECIMAL(9,2),
     avg_rating DECIMAL(3,1),
     PRIMARY KEY(package_id, fk_place_id),
-    FOREIGN KEY(fk_place_id) REFERENCES tourism(place_id)
+    FOREIGN KEY(fk_place_id) REFERENCES tourism(place_id) ON DELETE CASCADE
 );
 
 -- create tour_rating table;
