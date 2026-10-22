@@ -6,6 +6,7 @@ FRIDAY 10AM
 */
 
 #PART3
+
 -- show count of users not from jakarta
 SELECT  l.province AS province,
         COUNT(u.user_id) AS user_count_not_from_JKT
