@@ -6,7 +6,36 @@ FRIDAY 10AM
 */
 
 #PART3
--- Show all tourist place that is free to enter everywhere
+-- show count of users not from jakarta
+SELECT  l.province AS province,
+        COUNT(u.user_id) AS user_count_not_from_JKT
+FROM location AS l
+JOIN users AS u
+    ON u.fk_city_id = l.city_id
+WHERE province != 'DKI Jakarta'
+GROUP BY province
+ORDER BY user_count_not_from_JKT DESC;
+
+-- show which city/regency as the most tourist attraction
+SELECT  l.city_name AS city_or_regency,
+        COUNT(t.place_id) no_of_attraction
+FROM location AS l
+JOIN tourism AS t
+    ON l.city_id = t.fk_city_id
+GROUP BY city_or_regency
+ORDER BY no_of_attraction DESC;
+
+-- show which city/regency provides most free to enter tourist attraction
+SELECT  l.city_name AS city_or_regency,
+        COUNT(t.place_id) AS no_of_free_attraction
+FROM location AS l
+JOIN tourism AS t
+    ON l.city_id = t.fk_city_id
+WHERE t.price = 0
+GROUP BY city_or_regency
+ORDER BY no_of_free_attraction DESC;
+
+-- Show all tourist attraction that is free to enter everywhere
 SELECT  t.place_id, 
         t.place_name AS name, 
         c.category_name AS category,
@@ -18,6 +47,16 @@ JOIN location AS l
     ON t.fk_city_id = l.city_id
     WHERE price = 0
 ORDER BY t.place_id;
+
+-- show which province provides most free to enter tourist attraction
+SELECT  l.province AS province,
+        COUNT(t.place_id) AS no_of_free_places
+FROM location AS l
+JOIN tourism AS t
+    ON l.city_id = t.fk_city_id
+WHERE t.price = 0
+GROUP BY province
+ORDER BY no_of_free_places DESC;
 
 -- show all tourist attraction with rating aggregate
 SELECT  r.place_id,
@@ -35,7 +74,7 @@ GROUP BY r.place_id
 ORDER BY rating DESC;
 
 -- show which province has best rated tourist attraction
-SELECT  l.province AS provice,
+SELECT  l.province AS province,
         AVG(r.rating) AS avg_rating
 FROM location AS l
 JOIN tourism AS t
@@ -43,27 +82,15 @@ JOIN tourism AS t
 JOIN tour_rating AS r
     ON r.place_id = t.place_id
 GROUP BY province;
+ORDER BY avg_rating DESC;
 
--- aggregate the total cost for each tour package and its average rating
-/*
-SELECT  p.package_id ,
-        SUM(t.price) AS total_price
-FROM tour_package AS p
-JOIN tourism AS t
-    ON p.fk_place_id = t.place_id
-GROUP BY p.package_id;
 
-SELECT  pp.package_id,
-        AVG(rr.rating) AS avg_rating
-FROM tour_package AS pp
-JOIN tour_rating AS rr
-    on pp.fk_place_id = rr.place_id
-GROUP BY pp.package_id;
-*/
 
+-- aggregate the total cost for each tour package, its average rating and time to be spent
 SELECT  pp.package_id,
         pp.total_price,
-        rr.avg_rating
+        rr.avg_rating,
+        mm.total_hour
 FROM (
     SELECT  p.package_id ,
         SUM(t.price) AS total_price
@@ -80,4 +107,14 @@ JOIN (
         on pp.fk_place_id = rr.place_id
     GROUP BY pp.package_id
     ) AS rr
-    ON pp.package_id = rr.package_id;
+    ON pp.package_id = rr.package_id
+JOIN (
+    SELECT p.package_id,
+        SUM(t.time_minute) / 60 AS total_hour
+    FROM tour_package AS p
+    JOIN tourism AS t
+        ON p.fk_placitse_id = t.place_id
+    GROUP BY p.package_id
+    ) AS mm
+    ON pp.package_id = mm.package_id
+GROUP BY pp.package_id;
