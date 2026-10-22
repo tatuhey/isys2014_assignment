@@ -1,40 +1,40 @@
-﻿city_id,city_name,province
-1,Serang,Banten
-2,Tanggerang,Banten
-3,Cilacap,Central Java
-4,Klaten,Central Java
-5,Semarang,Central Java
-6,Semarang regency,Central Java
-7,Solo,Central Java
-8,Sragen,Central Java
-9,Central Jakarta,DKI Jakarta
-10,East Jakarta,DKI Jakarta
-11,North Jakarta,DKI Jakarta
-12,South Jakarta,DKI Jakarta
-13,Thousand Islands,DKI Jakarta
-14,West Jakarta,DKI Jakarta
-15,Madura,East Java
-16,Nganjuk,East Java
-17,Ponorogo,East Java
-18,Sidoarjo,East Java
-19,Surabaya,East Java
-20,Lampung,South Sumatera
-21,Palembang,South Sumatera
-22,Bandung,West Java
-23,Bandung regency,West Java
-24,Bekasi,West Java
-25,Bogor,West Java
-26,Cirebon,West Java
-27,Depok,West Java
-28,Garut,West Java
-29,Karawang,West Java
-30,Magelang,West Java
-31,Purwakarta,West Java
-32,Subang,West Java
-33,West Bandung regency,West Java
-34,Bantul,Yogyakarta
-35,Gunungkidul,Yogyakarta
-36,Kota Gede,Yogyakarta
-37,Kulon Progo,Yogyakarta
-38,Sleman,Yogyakarta
-39,Yogyakarta,Yogyakarta
+city_id,city_name,province
+001,Serang,Banten
+002,Tanggerang,Banten
+003,Cilacap,Central Java
+004,Klaten,Central Java
+005,Semarang,Central Java
+006,Semarang regency,Central Java
+007,Solo,Central Java
+008,Sragen,Central Java
+009,Central Jakarta,DKI Jakarta
+010,East Jakarta,DKI Jakarta
+011,North Jakarta,DKI Jakarta
+012,South Jakarta,DKI Jakarta
+013,Thousand Islands,DKI Jakarta
+014,West Jakarta,DKI Jakarta
+015,Madura,East Java
+016,Nganjuk,East Java
+017,Ponorogo,East Java
+018,Sidoarjo,East Java
+019,Surabaya,East Java
+020,Lampung,South Sumatera
+021,Palembang,South Sumatera
+022,Bandung,West Java
+023,Bandung regency,West Java
+024,Bekasi,West Java
+025,Bogor,West Java
+026,Cirebon,West Java
+027,Depok,West Java
+028,Garut,West Java
+029,Karawang,West Java
+030,Magelang,West Java
+031,Purwakarta,West Java
+032,Subang,West Java
+033,West Bandung regency,West Java
+034,Bantul,Yogyakarta
+035,Gunungkidul,Yogyakarta
+036,Kota Gede,Yogyakarta
+037,Kulon Progo,Yogyakarta
+038,Sleman,Yogyakarta
+039,Yogyakarta,Yogyakarta
