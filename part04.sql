@@ -6,6 +6,43 @@ FRIDAY 10AM
 */
 
 #PART4
+-- create procedure to do count of users in the table;
+DROP PROCEDURE IF EXISTS checkUserCount;
+DELIMITER //
+CREATE PROCEDURE checkUserCount()
+
+    COMMENT 'Call procedure, output count of user in the table users'
+    BEGIN
+        SELECT COUNT(user_id) AS no_of_user
+        FROM users;
+    END
+//
+DELIMITER ;
+
+CALL checkUserCount();
+
+-- create procedure to check what city does the user live in
+DROP PROCEDURE IF EXISTS checkUserDomicile;
+DELIMITER //
+CREATE PROCEDURE checkUserDomicile(
+        IN usrid CHAR(3)
+)
+    COMMENT 'Call procedure with user_id, receive city and province information,'
+    BEGIN
+
+        SELECT  CONCAT(l.city_name, ', ', l.province) AS user_domicile
+        FROM users AS u
+        INNER JOIN location AS l
+            ON u.fk_city_id = l.city_id
+        WHERE u.user_id = usrid;
+        
+    END
+//
+DELIMITER ;
+
+CALL checkUserDomicile('253');
+
+
 
 -- create stored procedure to add new users to the database
 DROP PROCEDURE IF EXISTS insNewUser;
@@ -23,39 +60,20 @@ CREATE PROCEDURE insNewUser(
         SELECT LPAD(MAX(user_id)+1, 3, '0') FROM users    INTO nxuserid; -- TO MAKE SURE THAT IDS ARE 3 DIGIT
         SELECT LPAD(MAX(city_id)+1, 3, '0') FROM location INTO nxctid;   -- TO HAVE LEADING 0 IF NECESSARY
 
+        SELECT city_name
+        FROM location
+        WHERE city_name = ctname;
+
         INSERT INTO location(city_id, city_name, province)
             VALUES(nxctid, ctname, prv);
         INSERT INTO users(user_id, fk_city_id, age)
             VALUES(nxuserid, nxctid, age);
-
 
     END
 //
 DELIMITER ;
 
 CALL insNewUser(30, 'Denpasar', 'Bali');
-
--- create procedure to check what city does the user live in
-DROP PROCEDURE IF EXISTS checkUserDomicile;
-DELIMITER //
-CREATE PROCEDURE checkUserDomicile(
-        IN usrid CHAR(3)
-)
-    COMMENT 'Call procedure with user_id, receive city and province information,'
-    BEGIN
-
-        SELECT  l.city_name AS city_name,
-                l.province AS province
-        FROM users AS u
-        JOIN location AS l
-            ON u.fk_city_id = l.city_id
-        WHERE u.user_id = usrid;
-        
-    END
-//
-DELIMITER ;
-
-CALL checkUserDomicile(1);
 
 -- create view 
 DROP VIEW IF EXISTS JakartaAttractions;
