@@ -111,7 +111,7 @@ JOIN (
     ON pp.package_id = rr.package_id
 JOIN (
     SELECT p.package_id,
-        SUM(t.time_minute) / 60 AS total_hour
+        SUM(t.time_minute) / 60 AS total_hour           -- need to be casted as time
     FROM tour_package AS p
     JOIN tourism AS t
         ON p.fk_placitse_id = t.place_id
