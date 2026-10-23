@@ -1,5 +1,4 @@
 archive.zip
-.~lock.Relational schema.docx#
 .nfs000000009762a8cc000000d1
 mysql-connector-j_26.10.0-1ubuntu22.04_all.deb
 mysql-connector-j_26.10.0-1ubuntu22.04_all/control.tar.zst
@@ -7,8 +6,6 @@ mysql-connector-j_26.10.0-1ubuntu22.04_all/control.tar.zst
 mysql-connector-j_26.10.0-1ubuntu22.04_all/debian-binary
 mysql-connector-j_26.10.0-1ubuntu22.04_all/data.tar.zst
 .gitignore
-lib/mysql-connector-j-26.7.0.jar
 mysql-connector-j_26.7.0-1ubuntu26.04_all.deb
-lib/mysql-connector-java-26.7.0.jar
 DriverCheck.class
 dbs_tourism.class
