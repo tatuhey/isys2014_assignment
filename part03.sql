@@ -1,4 +1,4 @@
-city_idjp/*
+/*
 ISYS2014 - DATABASE SYSTEM
 RAIHAN KHALIL ABDILLAH
 17900375
@@ -119,3 +119,31 @@ INNER JOIN (
     ) AS mm
     ON pp.package_id = mm.package_id
 GROUP BY pp.package_id;
+
+-- show all tourist attraction, that west javan visited
+SELECT  a.user_id AS user_id,
+        a.age AS age,
+        a.domicile AS domicile,
+        b.place_id AS place_id,
+        b.name AS attraction_name,
+        b.province AS province
+FROM
+    (SELECT u.user_id AS user_id,
+            u.age AS age,
+            CONCAT(l.city_name, ', ', l.province) AS domicile,
+            r.place_id
+    FROM users AS u
+    INNER JOIN location AS l
+        ON u.fk_city_id = l.city_id
+    INNER JOIN tour_rating AS r
+        ON u.user_id = r.user_id
+    WHERE l.province = 'West Java') AS a
+INNER JOIN                               -- right outer join will sort this by place_id 
+    (SELECT t.place_id AS place_id,
+            t.place_name AS name,
+            l.province AS province
+    FROM tourism AS t
+    INNER JOIN location AS l
+        ON t.fk_city_id = l.city_id) AS b
+    ON a.place_id = b.place_id
+ORDER BY b.place_id;

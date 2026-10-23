@@ -25,7 +25,7 @@ CALL checkUserCount();
 DROP PROCEDURE IF EXISTS checkUserDomicile;
 DELIMITER //
 CREATE PROCEDURE checkUserDomicile(
-        IN usrid CHAR(3)
+    IN usrid CHAR(3)
 )
     COMMENT 'Call procedure with user_id, receive city and province information,'
     BEGIN
@@ -42,15 +42,38 @@ DELIMITER ;
 
 CALL checkUserDomicile('253');
 
+-- create procedure to check whether city already exists in the location table
+DROP PROCEDURE IF EXISTS checkCity;
+DELIMITER //
+CREATE PROCEDURE checkCity(
+    IN cityname VARCHAR(20)
+)
+    COMMENT 'Call procedure with city_name, receieve output whether city is in the database or not.'
+    BEGIN
+        DECLARE cityCount INT DEFAULT 0;
+        SELECT COUNT(l.city_name) INTO cityCount
+        FROM location AS l
+        WHERE l.city_name = cityname;
 
+        IF cityCount > 0 then
+            SELECT CONCAT('City and/or regency ', cityname, ' exists in the database.') AS result;
+        ELSE
+            SELECT CONCAT('City and/or regency ', cityname, ' does not exists in the database.') AS result;
+        END IF;
+    END
+//
+DELIMITER ;
+
+CALL checkCity('Depok');
+CALL checkCity('Sukabumi');
 
 -- create stored procedure to add new users to the database
 DROP PROCEDURE IF EXISTS insNewUser;
 DELIMITER //
 CREATE PROCEDURE insNewUser(
-        age int(2),
-        ctname VARCHAR(20),
-        prv VARCHAR(20)
+    age int(2),
+    ctname VARCHAR(20),
+    prv VARCHAR(20)
 )
     COMMENT 'Insert new user into the table users AND their locaiton to table location.'
     BEGIN
@@ -75,7 +98,21 @@ DELIMITER ;
 
 CALL insNewUser(30, 'Denpasar', 'Bali');
 
--- create view 
+-- create trigger to count users after adding new user
+DROP TRIGGER IF EXISTS after_users_insert;
+DELIMITER //
+CREATE TRIGGER after_users_insert
+    AFTER INSERT ON users
+    FOR EACH ROW
+    BEGIN
+        SELECT COUNT(user_id) INTO @user_count FROM users;
+    END
+//
+DELIMITER ;
+
+SELECT @user_count;
+
+-- create view to see all tourist attractions in Jakarta
 DROP VIEW IF EXISTS JakartaAttractions;
 CREATE VIEW JakartaAttractions AS
     SELECT  t.place_id AS place_id, t.place_name AS place_name, l.city_name AS city_or_regency
