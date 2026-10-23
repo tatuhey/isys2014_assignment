@@ -16,13 +16,13 @@ public class dbs_tourism {
         Scanner sc = new Scanner(System.in);
         
         System.out.print("Username: ");
-        String user = sc.nextLine();
+        String user = sc.nextLine();                            // sql username: dsuser
 
         System.out.print("Password: ");
-        String password = sc.nextLine();
+        String password = sc.nextLine();                        // userCreateSQL
 
         System.out.print("Database: ");
-        String db = sc.nextLine();
+        String db = sc.nextLine();                              // db of assignment: abdillah_17900375
 
         String url = "jdbc:mysql://localhost:3306/" + db;
 
@@ -104,6 +104,7 @@ public class dbs_tourism {
         }
  
     }
+
     public static void showTables(Scanner sc, Statement stmt) {
         String selectQ1 = "SHOW TABLES";
         
@@ -131,6 +132,7 @@ public class dbs_tourism {
         }
  
     }
+    
     public static void freeQuery(Scanner sc, Statement stmt, String input) {
         String selectQ1 = input;
         
