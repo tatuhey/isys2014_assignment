@@ -11,3 +11,4 @@ lib/mysql-connector-j-26.7.0.jar
 mysql-connector-j_26.7.0-1ubuntu26.04_all.deb
 lib/mysql-connector-java-26.7.0.jar
 DriverCheck.class
+dbs_tourism.class
