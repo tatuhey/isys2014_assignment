@@ -18,15 +18,14 @@ public class dbs_tourism {
         String url = "jdbc:mysql://localhost:3306/company";
 
         try {
-            (Connection conn = DriverManager.getConnection(url, user, password);
-            Statement stmt = conn.createStatement()) {
-                System.out.println("Connected to database : " + conn.getCatalog());
-            }
+            Connection conn = DriverManager.getConnection(url, user, password);
+            Statement stmt = conn.createStatement();
+            System.out.println("Connected to database : " + conn.getCatalog());
             
         } catch (SQLException e) {
             System.out.println("Database error: " + e.getMessage());
         }
 
-        sc.Close();
+        sc.close();
     }
 }
