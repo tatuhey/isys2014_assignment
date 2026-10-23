@@ -45,7 +45,7 @@ CREATE TABLE users(
 DROP TABLE IF EXISTS tourism;
 CREATE TABLE tourism(
     place_id CHAR(3) NOT NULL,
-    place_name VARCHAR(20) NOT NULL,
+    place_name VARCHAR(50) NOT NULL,
     description VARCHAR(500),
     fk_city_id CHAR(3) NOT NULL,
     fk_category_id CHAR(3) NOT NULL,

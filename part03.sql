@@ -1,4 +1,4 @@
-/*
+city_idjp/*
 ISYS2014 - DATABASE SYSTEM
 RAIHAN KHALIL ABDILLAH
 17900375
@@ -11,7 +11,7 @@ FRIDAY 10AM
 SELECT  l.province AS province,
         COUNT(u.user_id) AS user_count_not_from_JKT
 FROM location AS l
-JOIN users AS u
+LEFT OUTER JOIN users AS u
     ON u.fk_city_id = l.city_id
 WHERE province != 'DKI Jakarta'
 GROUP BY province
@@ -21,7 +21,7 @@ ORDER BY user_count_not_from_JKT DESC;
 SELECT  l.city_name AS city_or_regency,
         COUNT(t.place_id) no_of_attraction
 FROM location AS l
-JOIN tourism AS t
+LEFT OUTER JOIN tourism AS t
     ON l.city_id = t.fk_city_id
 GROUP BY city_or_regency
 ORDER BY no_of_attraction DESC;
@@ -30,7 +30,7 @@ ORDER BY no_of_attraction DESC;
 SELECT  l.city_name AS city_or_regency,
         COUNT(t.place_id) AS no_of_free_attraction
 FROM location AS l
-JOIN tourism AS t
+LEFT OUTER JOIN tourism AS t
     ON l.city_id = t.fk_city_id
 WHERE t.price = 0
 GROUP BY city_or_regency
@@ -42,9 +42,9 @@ SELECT  t.place_id,
         c.category_name AS category,
         l.province AS province
 FROM tourism AS t
-JOIN tour_category AS c
+LEFT OUTER JOIN tour_category AS c
     ON t.fk_category_id = c.category_id
-JOIN location AS l
+LEFT OUTER JOIN location AS l
     ON t.fk_city_id = l.city_id
     WHERE price = 0
 ORDER BY t.place_id;
@@ -53,7 +53,7 @@ ORDER BY t.place_id;
 SELECT  l.province AS province,
         COUNT(t.place_id) AS no_of_free_places
 FROM location AS l
-JOIN tourism AS t
+INNER JOIN tourism AS t
     ON l.city_id = t.fk_city_id
 WHERE t.price = 0
 GROUP BY province
@@ -67,9 +67,9 @@ SELECT  r.place_id,
         l.province AS province
         -- COUNT(r.rating) AS rating_count
 FROM tour_rating AS r
-JOIN tourism AS t
+LEFT OUTER JOIN tourism AS t
     ON r.place_id = t.place_id
-JOIN location AS l
+LEFT OUTER JOIN location AS l
     ON t.fk_city_id = l.city_id
 GROUP BY r.place_id
 ORDER BY rating DESC;
@@ -78,9 +78,9 @@ ORDER BY rating DESC;
 SELECT  l.province AS province,
         AVG(r.rating) AS avg_rating
 FROM location AS l
-JOIN tourism AS t
+LEFT OUTER JOIN tourism AS t
     ON l.city_id = t.fk_city_id
-JOIN tour_rating AS r
+LEFT OUTER JOIN tour_rating AS r
     ON r.place_id = t.place_id
 GROUP BY province;
 ORDER BY avg_rating DESC;
@@ -96,25 +96,25 @@ FROM (
     SELECT  p.package_id ,
         SUM(t.price) AS total_price
     FROM tour_package AS p
-    JOIN tourism AS t
+    LEFT OUTER JOIN tourism AS t
         ON p.fk_place_id = t.place_id
     GROUP BY p.package_id
     ) AS pp
-JOIN (
+LEFT OUTER JOIN (
     SELECT  pp.package_id,
         AVG(rr.rating) AS avg_rating
     FROM tour_package AS pp
-    JOIN tour_rating AS rr
+    LEFT OUTER JOIN tour_rating AS rr
         on pp.fk_place_id = rr.place_id
     GROUP BY pp.package_id
     ) AS rr
     ON pp.package_id = rr.package_id
-JOIN (
+LEFT OUTER JOIN (
     SELECT p.package_id,
         SUM(t.time_minute) / 60 AS total_hour           -- need to be casted as time
     FROM tour_package AS p
-    JOIN tourism AS t
-        ON p.fk_placitse_id = t.place_id
+    LEFT OUTER JOIN tourism AS t
+        ON p.fk_place_id = t.place_id
     GROUP BY p.package_id
     ) AS mm
     ON pp.package_id = mm.package_id

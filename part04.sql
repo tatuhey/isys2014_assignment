@@ -35,8 +35,7 @@ DELIMITER ;
 
 CALL insNewUser(30, 'Denpasar', 'Bali');
 
-
-
+-- create procedure to check what city does the user live in
 DROP PROCEDURE IF EXISTS checkUserDomicile;
 DELIMITER //
 CREATE PROCEDURE checkUserDomicile(
@@ -57,3 +56,16 @@ CREATE PROCEDURE checkUserDomicile(
 DELIMITER ;
 
 CALL checkUserDomicile(1);
+
+-- create view 
+DROP VIEW IF EXISTS JakartaAttractions;
+CREATE VIEW JakartaAttractions AS
+    SELECT  t.place_id AS place_id, t.place_name AS place_name, l.city_name AS city_or_regency
+    FROM    tourism AS t
+    INNER JOIN location as l
+    ON l.province = 'DKI Jakarta'
+    AND t.fk_city_id = l.city_id
+    ORDER BY place_id;
+
+SELECT place_id, place_name, city_or_regency
+    FROM JakartaAttractions;
